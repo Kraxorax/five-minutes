@@ -1,7 +1,7 @@
 export default async function Get(
     url: string,
-    headers:Record<string, unknown> = {}
-): Promise<any>{
+    headers: Record<string, string> = {}
+): Promise<any> {
     try {
         const response: Response = await fetch(url, {
             method: 'GET',
@@ -13,6 +13,6 @@ export default async function Get(
         });
         return response.json();
     } catch (e) {
-        throw new Error(e);
+        throw new Error(e as string);
     }
 }

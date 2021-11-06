@@ -1,8 +1,8 @@
 export default async function Put(
     url: string,
-    body: Record<string, unknown>,
-    headers: Record<string, unknown> = {}
-): Promise<any>{
+    body: Record<string, string>,
+    headers: Record<string, string> = {}
+): Promise<any> {
     try {
         const response: Response = await fetch(url, {
             method: 'PUT',
@@ -15,6 +15,6 @@ export default async function Put(
         });
         return response.json();
     } catch (e) {
-        throw new Error(e);
+        throw new Error(e as string);
     }
 }

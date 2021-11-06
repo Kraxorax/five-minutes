@@ -1,9 +1,9 @@
 import * as React from 'react';
 import '../Less/app.less';
-import {apiRoute} from '../utils';
-import {AppProps, AppStates} from "../../server/domain/IApp";
-import {ITest} from "../../server/domain/ITest";
-import {Put, Post, Get, Delete} from "../Services";
+import { apiRoute } from '../utils';
+import { AppProps, AppStates } from "../../server/domain/IApp";
+import { ITest } from "../../server/domain/ITest";
+import { Put, Post, Get, Delete } from "../Services";
 
 export default class App extends React.Component<AppProps, AppStates> {
     state: AppStates = {
@@ -19,43 +19,43 @@ export default class App extends React.Component<AppProps, AppStates> {
     testGet = async (): Promise<void> => {
         try {
             const res: { username: string } = await Get(apiRoute.getRoute('test'))
-            this.setState({username: res.username});
+            this.setState({ username: res.username });
         } catch (e) {
-            this.setState({username: e.message});
+            this.setState({ username: (e as Error).message });
         }
     }
 
 
     testPost = async (): Promise<void> => {
-        const {textOfPostTest} = this.state;
+        const { textOfPostTest } = this.state;
 
         if (textOfPostTest.trim()) {
             try {
                 const res: ITest = await Post(
                     apiRoute.getRoute('test'),
-                    {text: textOfPostTest}
+                    { text: textOfPostTest }
                 );
                 this.setState({
                     textForPost: res.text,
                     response: res,
                 });
             } catch (e) {
-                this.setState({textForPost: e.message});
+                this.setState({ textForPost: (e as Error).message });
             }
         }
     }
 
     testPut = async (): Promise<void> => {
-        const {textOfPutTest, response} = this.state;
+        const { textOfPutTest, response } = this.state;
         if (response && textOfPutTest.trim()) {
             try {
                 const res: ITest = await Put(
                     apiRoute.getRoute('test'),
-                    {text: textOfPutTest, id: response?._id}
-                    );
-                this.setState({textForPut: res.text, response: res});
+                    { text: textOfPutTest, id: response?._id }
+                );
+                this.setState({ textForPut: res.text, response: res });
             } catch (e) {
-                this.setState({textForPut: e.message});
+                this.setState({ textForPut: (e as Error).message });
             }
         } else {
             this.setState({
@@ -65,13 +65,13 @@ export default class App extends React.Component<AppProps, AppStates> {
     }
 
     testDelete = async (): Promise<void> => {
-        const {response} = this.state;
+        const { response } = this.state;
         if (response) {
             try {
-                const res: ITest = await Delete(apiRoute.getRoute('test'), {id: response?._id});
-                this.setState({textForDelete: `${res._id} ${res.text}`, response: undefined});
+                const res: ITest = await Delete(apiRoute.getRoute('test'), { id: response?._id });
+                this.setState({ textForDelete: `${res._id} ${res.text}`, response: undefined });
             } catch (e) {
-                this.setState({textForDelete: e.message});
+                this.setState({ textForDelete: (e as Error).message });
             }
         } else {
             this.setState({
@@ -81,7 +81,7 @@ export default class App extends React.Component<AppProps, AppStates> {
     }
 
     render() {
-        const {username, textForPost, textForPut, textForDelete} = this.state;
+        const { username, textForPost, textForPut, textForDelete } = this.state;
         const inputText = "Input text...";
         return (
             <div>
@@ -94,7 +94,7 @@ export default class App extends React.Component<AppProps, AppStates> {
                         <h2>{!!username && `Hello ${username}!`}</h2>
                     </div>
                     <div>
-                        <input onChange={e => this.setState({textOfPostTest: e.target.value})} placeholder={inputText}/>
+                        <input onChange={e => this.setState({ textOfPostTest: e.target.value })} placeholder={inputText} />
                         <button onClick={this.testPost}>{"Test Post"}</button>
                     </div>
                     <div>
@@ -102,7 +102,7 @@ export default class App extends React.Component<AppProps, AppStates> {
                         <h3>{textForPost}</h3>
                     </div>
                     <div>
-                        <input onChange={e => this.setState({textOfPutTest: e.target.value})} placeholder={inputText}/>
+                        <input onChange={e => this.setState({ textOfPutTest: e.target.value })} placeholder={inputText} />
                         <button onClick={this.testPut}>{"Test Put"}</button>
                     </div>
                     <div>
