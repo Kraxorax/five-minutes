@@ -26,7 +26,7 @@ module.exports = {
         test: /\.tsx?$/,
         use: [
           {
-            loader: 'awesome-typescript-loader'
+            loader: 'ts-loader'
           },
         ],
         exclude: /node_modules/
@@ -59,7 +59,12 @@ module.exports = {
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=100000'
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 100000 }
+          }
+        ]
       },
     ]
   },
@@ -76,6 +81,11 @@ module.exports = {
         secure: false,
         changeOrigin: true
       }
+    },
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
     }
   },
   plugins: [

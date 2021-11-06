@@ -3,9 +3,13 @@ import express, { Request, Response, Router, Express } from 'express';
 import router from './route';
 // import DBConnect from "./dbConfigs";
 import { RequestHandler } from 'express-serve-static-core';
+import http from 'http'
+import * as socketio from 'socket.io'
 
 // call express
 const app: Express = express(); // define our app using express
+const server: http.Server = http.createServer(app)
+const io = new socketio.Server(server)
 
 // configure app to use bodyParser for
 // Getting data from body of requests
@@ -13,8 +17,8 @@ app.use(express.urlencoded({ extended: true }) as RequestHandler);
 
 app.use(express.json() as RequestHandler)
 
-
 const port: number = Number(process.env.PORT) || 8050; // set our port
+
 
 // connect to database. right now it's just working with mongodb
 // but in near future it will be configured for other databases as well
@@ -36,3 +40,7 @@ app.use('/api', routes);
 // =============================================================================
 app.listen(port);
 console.log(`App listening on ${port}`);
+
+io.on('connection', (...params) => {
+    console.log(`IO conn : ${params}`)
+})
