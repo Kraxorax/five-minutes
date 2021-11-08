@@ -8,8 +8,6 @@ import * as socketio from 'socket.io'
 
 // call express
 const app: Express = express(); // define our app using express
-const server: http.Server = http.createServer(app)
-const io = new socketio.Server(server)
 
 // configure app to use bodyParser for
 // Getting data from body of requests
@@ -38,9 +36,15 @@ app.use('/api', routes);
 
 // START THE SERVER
 // =============================================================================
-app.listen(port);
-console.log(`App listening on ${port}`);
+// app.listen(port);
+// console.log(`App listening on ${port}`);
 
+
+const server: http.Server = http.createServer(app)
+const io = new socketio.Server(server)
 io.on('connection', (...params) => {
     console.log(`IO conn : ${params}`)
+})
+server.listen(port, () => {
+    console.log(`Server listening on ${port}`)
 })

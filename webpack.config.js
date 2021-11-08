@@ -82,7 +82,7 @@ module.exports = {
         changeOrigin: true
       },
       '/socket.io': {
-        target: 'http://localhost:8050/socket.io',
+        target: 'http://localhost:8050',
         ws: true
       }
     }
