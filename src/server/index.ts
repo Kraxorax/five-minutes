@@ -1,10 +1,10 @@
-
 import express, { Request, Response, Router, Express } from 'express';
 import router from './route';
 // import DBConnect from "./dbConfigs";
 import { RequestHandler } from 'express-serve-static-core';
 import http from 'http'
 import * as socketio from 'socket.io'
+import { chan } from './models'
 
 // call express
 const app: Express = express(); // define our app using express
@@ -42,9 +42,23 @@ app.use('/api', routes);
 
 const server: http.Server = http.createServer(app)
 const io = new socketio.Server(server)
-io.on('connection', (...params) => {
-    console.log(`IO conn : ${params}`)
+io.of('/').on('connection', (socket) => {
+    console.log(`a user connected : ${socket.id}`)
+
+    socket.on('disconnect', () => {
+        console.log('user disconected')
+    })
+
+    io.to(socket.id).emit('chan', chan.posts)
+
+    socket.on('msg', (msg) => {
+        console.warn("Server received:", msg)
+        chan.add(msg)
+        io.of('/').emit('msg', msg)
+    })
 })
+
+
 server.listen(port, () => {
     console.log(`Server listening on ${port}`)
 })

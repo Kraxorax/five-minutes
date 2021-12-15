@@ -1,7 +1,7 @@
 
 
 class Channel {
-    posts: Array<string> = [];
+    posts: string[] = ['Channel started'];
 
     add = (text: string): number => {
         this.posts.push(text)

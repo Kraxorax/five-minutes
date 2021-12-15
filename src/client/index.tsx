@@ -8,11 +8,7 @@ socket.on('connect_error', (err) => {
     console.log('Socket.io connection error:', err.message)
 })
 
-
-socket.emit('msg', '123test')
-
-
 ReactDOM.render(
-    <App />,
+    <App socket={socket} />,
     document.getElementById('root')
 );

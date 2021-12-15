@@ -1,4 +1,6 @@
-import {ITest} from "./ITest";
+import { Socket } from "socket.io-client";
+import { DefaultEventsMap } from "socket.io/dist/typed-events";
+import { ITest } from "./ITest";
 
 export interface AppStates {
     username?: string;
@@ -11,4 +13,6 @@ export interface AppStates {
     response?: ITest,
 }
 
-export interface AppProps {}
+export interface AppProps {
+    socket: Socket<DefaultEventsMap, DefaultEventsMap>
+}
