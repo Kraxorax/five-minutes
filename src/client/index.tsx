@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './Components/app';
+import { App } from './Components/app';
 import io from 'socket.io-client'
 
 const socket = io('ws://localhost:3000')

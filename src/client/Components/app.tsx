@@ -1,11 +1,39 @@
-import * as React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import '../Less/app.less';
 import { apiRoute } from '../utils';
 import { AppProps, AppStates } from "../../server/domain/IApp";
 import { ITest } from "../../server/domain/ITest";
 import { Put, Post, Get, Delete } from "../Services";
 
-export default class App extends React.Component<AppProps, AppStates> {
+
+export const App = (_props: AppProps): React.ReactElement => {
+    const ms: string[] = [];
+
+    const [msgs, setMsgs] = useState(ms);
+    const [typedMsg, setTypedMsg] = useState('')
+
+    const sendMsg = async () => {
+        await Post(apiRoute.getRoute('test'), { text: typedMsg })
+        setMsgs(msgs.concat(typedMsg))
+    }
+
+    return (
+        <div>
+            {console.log("RENDERING", typedMsg, msgs)}
+            <input onChange={e => setTypedMsg(e.target.value)} placeholder={typedMsg} />
+            <button onClick={sendMsg}>{"Test Post"}</button>
+            <div>
+                <h2>Messages:</h2>
+                {
+                    msgs.map((m, i) => <p key={i}>{m}</p>)
+                }
+            </div>
+        </div>
+    );
+}
+
+
+class _App extends React.Component<AppProps, AppStates> {
     state: AppStates = {
         username: '',
         textOfPostTest: '',
@@ -80,7 +108,7 @@ export default class App extends React.Component<AppProps, AppStates> {
         }
     }
 
-    render() {
+    render(): React.ReactElement {
         const { username, textForPost, textForPut, textForDelete } = this.state;
         const inputText = "Input text...";
         return (
