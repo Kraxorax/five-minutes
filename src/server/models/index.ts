@@ -1,7 +1,7 @@
 import Test from "./test";
-import { chan } from "./channel";
+import { Channel } from "./channel";
 
 export {
     Test,
-    chan
+    Channel
 }

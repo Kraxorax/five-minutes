@@ -1,6 +1,5 @@
 import { userInfo } from 'os';
 import router from '../router';
-import { chan } from '../../models';
 import { Request, Response } from "express";
 import { IError } from '../../domain/IError';
 
@@ -17,9 +16,7 @@ router.route('/test')
         res.json({ username });
     })
     .post(async (req: Request, res: Response) => {
-        const { text }: { text: string } = req.body;
-        const num_posts = chan.add(text)
-        res.status(201).json(`New post num ${num_posts}`);
+
         // const Text: ITest = new Test({text});
         // try {
         //     const savedText: ITest = await Text.save();

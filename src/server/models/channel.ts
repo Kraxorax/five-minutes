@@ -1,13 +1,18 @@
+import { Message } from './message'
 
-
-class Channel {
-    posts: string[] = ['Channel started'];
+export class Channel {
+    posts: Message[] = []
 
     add = (text: string): number => {
-        this.posts.push(text)
+        const message = new Message(text, this.remove)
+        this.posts.push(message)
         return this.posts.length
+    }
+
+    remove = (msg: Message): void => {
+        const index = this.posts.indexOf(msg)
+        this.posts.splice(index, 1)
     }
 }
 
 
-export const chan = new Channel()

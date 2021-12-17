@@ -4,7 +4,7 @@ import router from './route';
 import { RequestHandler } from 'express-serve-static-core';
 import http from 'http'
 import * as socketio from 'socket.io'
-import { chan } from './models'
+import { Channel } from './models'
 
 // call express
 const app: Express = express(); // define our app using express
@@ -40,6 +40,8 @@ app.use('/api', routes);
 // console.log(`App listening on ${port}`);
 
 
+const chan = new Channel()
+
 const server: http.Server = http.createServer(app)
 const io = new socketio.Server(server)
 io.of('/').on('connection', (socket) => {
@@ -49,7 +51,7 @@ io.of('/').on('connection', (socket) => {
         console.log('user disconected')
     })
 
-    io.to(socket.id).emit('chan', chan.posts)
+    io.to(socket.id).emit('chan', chan.posts.map(p => p.text))
 
     socket.on('msg', (msg) => {
         console.warn("Server received:", msg)
