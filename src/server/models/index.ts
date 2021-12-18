@@ -1,7 +1,7 @@
-import Test from "./test";
-import { Channel } from "./channel";
+import { Channel } from "./channel"
+import { Plumber } from "./plumber"
 
 export {
-    Test,
+    Plumber,
     Channel
 }

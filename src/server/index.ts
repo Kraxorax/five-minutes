@@ -1,10 +1,9 @@
 import express, { Request, Response, Router, Express } from 'express';
 import router from './route';
-// import DBConnect from "./dbConfigs";
 import { RequestHandler } from 'express-serve-static-core';
 import http from 'http'
 import * as socketio from 'socket.io'
-import { Channel } from './models'
+import { Plumber } from './models/plumber';
 
 // call express
 const app: Express = express(); // define our app using express
@@ -40,25 +39,10 @@ app.use('/api', routes);
 // console.log(`App listening on ${port}`);
 
 
-const chan = new Channel()
-
 const server: http.Server = http.createServer(app)
 const io = new socketio.Server(server)
-io.of('/').on('connection', (socket) => {
-    console.log(`a user connected : ${socket.id}`)
 
-    socket.on('disconnect', () => {
-        console.log('user disconected')
-    })
-
-    io.to(socket.id).emit('chan', chan.posts.map(p => p.text))
-
-    socket.on('msg', (msg) => {
-        console.warn("Server received:", msg)
-        chan.add(msg)
-        io.of('/').emit('msg', msg)
-    })
-})
+const plumber = Plumber.getInstance(io)
 
 
 server.listen(port, () => {
