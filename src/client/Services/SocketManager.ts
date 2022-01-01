@@ -5,14 +5,27 @@ import { SocketService } from "."
 
 export class SocketManager {
 
-    socket: Socket
+    socketServices: { [name: string]: SocketService } = {}
 
-    constructor() {
-        this.socket = io('ws://localhost:3000')
-        this.socket.on('connect_error', (err) => {
-            console.log('Socket.io connection error:', err.message)
-        })
+    getService = (name: string): SocketService => {
+        if (this.socketServices && this.socketServices[name]) return this.socketServices[name]
+
+        const socket = this.initSocket(name)
+
+        const service = new SocketService(socket)
+
+        this.socketServices[name] = service
+
+        return service
     }
 
-    getService = (): SocketService => new SocketService(this.socket)
+    initSocket = (name: string): Socket => {
+        const socket = io(`ws://localhost:3000/${name}`)
+
+        socket.on('connect_error', (err) => {
+            console.log('Socket.io connection error:', err.message)
+        })
+
+        return socket
+    }
 }

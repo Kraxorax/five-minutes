@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { BaseMessage } from '../../server/models/message'
-import { SocketManager, SocketService } from '../Services'
+import React from 'react'
+import { SocketManager } from '../Services'
 import { Channel } from './channel'
 import '../Less/app.less'
 
@@ -9,7 +8,7 @@ interface AppProps {
 }
 
 export const App = ({ socketManager }: AppProps): React.ReactElement => {
-    const socketService = socketManager.getService()
+    const socketService = socketManager.getService('root')
 
     return (
         <Channel socketService={socketService} ></Channel>
