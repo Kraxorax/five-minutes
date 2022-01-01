@@ -1,6 +1,6 @@
 import { Namespace } from 'socket.io'
 import { Expirable, BaseMessage } from './message'
-import { PostMessage, AllChannelMesages, ExpireMessage } from './messageTypes'
+import { PostMessage, AllChannelMesages, ExpireMessage, PublishMessage } from './messageTypes'
 
 export class Channel {
     posts: Expirable<BaseMessage>[] = []
@@ -18,7 +18,7 @@ export class Channel {
             socket.on(PostMessage, (msg) => {
                 console.log("Server received:", msg)
                 this.add(msg)
-                this.ns.emit(PostMessage, msg)
+                this.ns.emit(PublishMessage, msg)
             })
         })
     }
