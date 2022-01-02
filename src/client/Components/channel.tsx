@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BaseMessage } from '../../server/models/message'
 import { SocketService } from '../Services/SocketService'
-import '../Less/app.less';
+import { Message } from './message'
 
 interface ChannelProps {
     socketService: SocketService
@@ -37,16 +37,17 @@ export const Channel = ({ socketService }: ChannelProps): React.ReactElement => 
     };
 
     return (
-        <div>
-            <input value={typedMsg}
-                onChange={e => setTypedMsg(e.target.value)}
-                onKeyDown={keyDownHandler} />
-            <button onClick={sendMsg}>{"Test Post"}</button>
-            <div>
-                <h2>Messages:</h2>
+        <div className='channel'>
+            <div className='msg_pane'>
                 {
-                    msgs.map(m => <p key={m.id}>{m.text}</p>)
+                    msgs.map(m => <Message key={m.id} msg={m} />)
                 }
+            </div>
+            <div className='msg_input'>
+                <input value={typedMsg}
+                    onChange={e => setTypedMsg(e.target.value)}
+                    onKeyDown={keyDownHandler} />
+                <button onClick={sendMsg}>{"Test Post"}</button>
             </div>
         </div>
     );

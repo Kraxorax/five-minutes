@@ -1,3 +1,5 @@
+@import 'channel.less';
+
 @green: green;
 @link-color:        #b94eb4; // sea blue
 @link-color-hover:  lighten(@link-color, 30%);
@@ -8,10 +10,21 @@ h1 {
   color: @green;
 }
 
+html {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   text-align: center;
   margin: auto;
+  height: 100%;
 }
+
+#root {
+  height: 100%;
+}
+
 button {
   color: antiquewhite;
   padding: @button-padding;
