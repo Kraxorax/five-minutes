@@ -5,17 +5,17 @@ import { NewChannelModal } from "./NewChannelModal"
 export const ControlPanel = (): React.ReactElement => {
     const [isNewChannelModalOpen, setIsNewChannelModalOpen] = useState(false)
 
-
-    const makeNewChannel = () => {
-        setIsNewChannelModalOpen(true)
-        console.log('make new channel')
+    const makeNewChannel = (name: string) => {
+        console.log('make new channel ' + name)
     }
 
     return (
         <div className='control_panel'>
-            <button onClick={makeNewChannel}>{'Make new Channel'}</button>
+            <button onClick={() => setIsNewChannelModalOpen(true)}>{'Make new Channel'}</button>
             {isNewChannelModalOpen
-                ? <NewChannelModal closeModal={() => setIsNewChannelModalOpen(false)}></NewChannelModal>
+                ? <NewChannelModal
+                    closeModal={() => setIsNewChannelModalOpen(false)}
+                    makeChannel={makeNewChannel} />
                 : ''
             }
         </div >
