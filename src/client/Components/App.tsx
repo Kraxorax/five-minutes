@@ -1,7 +1,7 @@
 import React from 'react'
 import { SocketManager } from '../Services'
 import { Channel } from './Channel'
-import { ControlPanel } from './controlPanel'
+import { ControlPanel } from './ControlPanel'
 import '../Less/app.less'
 
 interface AppProps {

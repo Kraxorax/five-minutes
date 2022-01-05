@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { NewChannelModal } from "./newChannelModal"
+import { NewChannelModal } from "./NewChannelModal"
 
 
 export const ControlPanel = (): React.ReactElement => {
