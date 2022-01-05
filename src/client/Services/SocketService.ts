@@ -4,7 +4,10 @@ import { BaseMessage } from '../../server/models/message'
 
 export class SocketService {
 
+    public id: string
+
     constructor(private socket: Socket) {
+        this.id = socket.id
 
         socket.on(PublishMessage, (msg: BaseMessage) => {
             this.onPublishedMessage(msg)

@@ -28,4 +28,8 @@ export class SocketManager {
 
         return socket
     }
+
+    getAllServices = (): SocketService[] => {
+        return Object.values(this.socketServices)
+    }
 }

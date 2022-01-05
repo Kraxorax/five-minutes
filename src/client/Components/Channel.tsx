@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BaseMessage } from '../../server/models/message'
 import { SocketService } from '../Services/SocketService'
-import { Message } from './message'
+import { Message } from './Message'
 
 interface ChannelProps {
     socketService: SocketService
