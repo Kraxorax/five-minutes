@@ -14,7 +14,6 @@ export const App = ({ socketManager }: AppProps): React.ReactElement => {
 
     return (
         <div id='main'>
-            AAAAAAAAA
             <ControlPanel />
             <div className='channels'>
                 {services.map(ss =>
