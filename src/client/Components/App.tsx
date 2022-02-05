@@ -9,12 +9,12 @@ interface AppProps {
 }
 
 export const App = ({ socketManager }: AppProps): React.ReactElement => {
-    const _socketService = socketManager.getService('root')
+    const _socketService = socketManager.getService('channels')
     const services = socketManager.getAllServices()
 
     return (
         <div id='main'>
-            <ControlPanel />
+            <ControlPanel socketManager={socketManager} />
             <div className='channels'>
                 {services.map(ss =>
                     <Channel key={ss.id} socketService={ss} ></Channel>

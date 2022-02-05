@@ -1,7 +1,7 @@
 import { io, Socket } from "socket.io-client"
 import { SocketService } from "."
 
-
+const LOCAL_URL = 'ws://localhost:3000'
 
 export class SocketManager {
 
@@ -9,18 +9,11 @@ export class SocketManager {
 
     getService = (name: string): SocketService => {
         if (this.socketServices && this.socketServices[name]) return this.socketServices[name]
-
-        const socket = this.initSocket(name)
-
-        const service = new SocketService(socket)
-
-        this.socketServices[name] = service
-
-        return service
+        else return this.makeService(name)
     }
 
     initSocket = (name: string): Socket => {
-        const socket = io(`ws://localhost:3000/${name}`)
+        const socket = io(`${LOCAL_URL}/${name}`)
 
         socket.on('connect_error', (err) => {
             console.log('Socket.io connection error:', err.message)
@@ -31,5 +24,17 @@ export class SocketManager {
 
     getAllServices = (): SocketService[] => {
         return Object.values(this.socketServices)
+    }
+
+    makeService = (name: string): SocketService => {
+        const socket = this.initSocket(name)
+
+        const service = new SocketService(socket)
+
+        this.socketServices[name] = service
+
+        console.log(`Created socket service ${name}`)
+
+        return service
     }
 }

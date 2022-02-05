@@ -8,7 +8,7 @@ export class Plumber {
     public rootChan: Channel
 
     private constructor(private io: Server) {
-        const rootNamespace = this.io.of('/root')
+        const rootNamespace = this.io.of('/channels')
         this.rootChan = new Channel(rootNamespace)
     }
 

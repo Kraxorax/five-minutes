@@ -13,6 +13,9 @@ export class Channel {
                 console.log('user disconected')
             })
 
+            socket.join('main')
+            this.ns.to('main').emit(ExpireMessage, new BaseMessage('Welcome'))
+
             this.ns.to(socket.id).emit(AllChannelMesages, this.posts.map(p => p.data))
 
             socket.on(PostMessage, (msg) => {
