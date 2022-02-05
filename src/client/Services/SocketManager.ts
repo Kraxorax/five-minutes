@@ -1,9 +1,10 @@
 import { io, Socket } from "socket.io-client"
 import { SocketService } from "."
 
-const LOCAL_URL = 'ws://localhost:3000'
 
 export class SocketManager {
+
+    constructor(private siteHostname: string) { }
 
     socketServices: { [name: string]: SocketService } = {}
 
@@ -13,7 +14,7 @@ export class SocketManager {
     }
 
     initSocket = (name: string): Socket => {
-        const socket = io(`${LOCAL_URL}/${name}`)
+        const socket = io(`ws://${this.siteHostname}/${name}`)
 
         socket.on('connect_error', (err) => {
             console.log('Socket.io connection error:', err.message)
