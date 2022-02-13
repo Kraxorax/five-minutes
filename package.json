@@ -4,10 +4,10 @@
   "description": "An Express, React with Typescript and Less boilerplate",
   "main": "server/index.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack --mode production && tsc -p tsconfig.server.json",
     "start": "npm run build && npm run server",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
-    "server": "tsc -p tsconfig.server.json && node server/",
+    "server": "node server/",
     "dev": "concurrently \"nodemon\" \"npm run client\"",
     "server-dev": "nodemon"
   },

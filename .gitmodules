@@ -1,0 +1,3 @@
+[submodule "game-of-elm"]
+	path = game-of-elm
+	url = git@github.com:Kraxorax/game-of-elm.git
