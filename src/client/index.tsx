@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { App } from './Components/App';
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import { App } from './Components/App'
 import { SocketManager } from './Services/SocketManager'
 
 // stupid hack

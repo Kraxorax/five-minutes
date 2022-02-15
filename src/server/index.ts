@@ -1,4 +1,4 @@
-import express, { Request, Response, Router, Express } from 'express';
+import express, { Router, Express } from 'express';
 import router from './route';
 import { RequestHandler } from 'express-serve-static-core';
 import http from 'http'
@@ -23,10 +23,8 @@ const port: number = Number(process.env.PORT) || 8050; // set our port
 
 // Send index.html on root request
 app.use(express.static('dist'));
-app.get('/', (req: Request, res: Response) => {
-    console.log('sending index.html');
-    res.sendFile('/dist/index.html');
-});
+app.use('/gol', express.static('dist/gol'));
+
 
 // REGISTER ROUTES
 // all of the routes will be prefixed with /api
